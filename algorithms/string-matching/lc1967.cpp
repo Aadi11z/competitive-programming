@@ -10,26 +10,21 @@ struct AhoNode {
 
 int numOfStrings(vector<string>& patterns, string word) {
     vector<AhoNode> trie(1);
+    int n = patterns.size();
 
-    for (int i = 0; i < patterns.size(); i++) {
+    for (int i = 0; i < n; i++) {
         int node = 0;
 
         for (char c : patterns[i]) {
-            int node = 0;
-
-            for (char c : patterns[i]) {
-                int idx = c - 'a';
-
-                if (trie[node].next[idx] == 0) {
-                    trie[node].next[idx] = trie.size();
-                    trie.push_back(AhoNode());
-                }
-
-                node = trie[node].next[idx];
+            int idx = c - 'a';
+            if (trie[node].next[idx] == 0) {
+                trie[node].next[idx] = trie.size();
+                trie.push_back(AhoNode());
             }
-
-            trie[node].pattern_ids.push_back(i);
+            node = trie[node].next[idx];
         }
+
+        trie[node].pattern_ids.push_back(i);
     }
 
     queue<int> q;
@@ -86,5 +81,9 @@ int numOfStrings(vector<string>& patterns, string word) {
 int main() {
     vector<string> patterns = {"he", "she", "hers"};
     string word = "ushers";
+
+    int res = numOfStrings(patterns, word);
+    cout << res << endl;
+    
     return 0;
 }
