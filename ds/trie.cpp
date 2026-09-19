@@ -6,6 +6,9 @@ struct TrieNode {
   TrieNode *children[26];
   bool leaf = false;
 
+  TrieNode(const TrieNode &) = delete;
+  TrieNode &operator=(const TrieNode &) = delete;
+
   TrieNode() {
     for (int i = 0; i < 26; i++) {
       children[i] = nullptr;
@@ -32,6 +35,11 @@ private:
   }
 
 public:
+  Trie() = default;
+
+  Trie(const Trie &) = delete;
+  Trie &operator=(const Trie &) = delete;
+
   ~Trie() { delete root; }
 
   void insert(const std::string &word) {
@@ -56,8 +64,7 @@ public:
     for (char letter : word) {
       int index = character_index(letter);
       if (index == -1)
-        throw std::invalid_argument("Trie accepts ASCII letters only");
-
+        return false;
       if (current->children[index] == nullptr)
         return false;
       current = current->children[index];
