@@ -1,14 +1,10 @@
 #include <bits/stdc++.h>
 
 int removeElement(std::vector<int> &nums, int val) {
-  int k = 0;
-  int n = nums.size();
-  for (int i = 0; i < n; i++) {
-    if (nums[i] != val) {
-      nums[k++] = nums[i];
-    }
-  }
-  return k;
+  nums.erase(std::remove(nums.begin(), nums.end(), val), nums.end());
+  nums.shrink_to_fit();
+
+  return nums.size();
 }
 
 int main() {
