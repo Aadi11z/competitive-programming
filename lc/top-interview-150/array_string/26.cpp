@@ -2,17 +2,15 @@
 
 int removeDuplicates(std::vector<int> &nums) {
   int a = 0;
-  int b = 1;
-  while (b < (int)nums.size()) {
-    if (nums[a] == nums[b]) {
-      nums.erase(nums.begin() + b);
-    } else {
-      b++;
+
+  for (int i = 1; i < (int)nums.size(); i++) {
+    if (nums[i] != nums[a]) {
       a++;
+      nums[a] = nums[i];
     }
   }
 
-  return nums.size();
+  return a + 1;
 }
 
 int main() {
@@ -21,8 +19,8 @@ int main() {
 
   std::cout << res << '\n';
 
-  for (int x : nums)
-    std::cout << x << " ";
+  for (int i = 0; i < res; i++)
+    std::cout << nums[i] << " ";
 
   return 0;
 }
